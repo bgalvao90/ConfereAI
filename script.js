@@ -6,24 +6,29 @@ document.addEventListener('DOMContentLoaded', () => {
   
         console.log("Verificando URL:", activeTabUrl);
   
-        fetch("", {
+        fetch("https://API.com", { // Alterar para API correta
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({ url: activeTabUrl })
         })
-          .then(response => response.json())
+          .then(response => {
+            if (!response.ok) throw new Error("Resposta da API não OK");
+            return response.json();
+          })
           .then(data => {
-            if (data.confiavel) {
+            if (data.confiavel && document.getElementById('alertaSeguro')) {
               document.getElementById('alertaSeguro').style.display = 'block';
-            } else {
+            } else if (!data.confiavel && document.getElementById('alertaInseguro')) {
               document.getElementById('alertaInseguro').style.display = 'block';
             }
           })
           .catch(error => {
             console.error("Erro:", error);
-            document.getElementById('alertaErro').style.display = 'block';
+            if (document.getElementById('alertaErro')) {
+              document.getElementById('alertaErro').style.display = 'block';
+            }
           });
       });
     } else {
