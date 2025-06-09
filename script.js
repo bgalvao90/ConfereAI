@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
         console.log("Verificando URL:", activeTabUrl);
   
-        fetch("https://API.com", { // Alterar para API correta
+        fetch("https://localhost:7141/Api/Sites/Verificar", { // Alterar para API correta
           method: "POST",
           headers: {
             "Content-Type": "application/json"

@@ -2,7 +2,7 @@
     const currentUrl = window.location.href;
   
     // ⚠️ Troque essa URL pela sua API real
-    fetch("https://api.com", {
+    fetch("https://localhost:7141/api/Sites/Verificar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -25,9 +25,13 @@
         alerta.style.fontSize = "16px";
         alerta.style.color = "#fff";
         alerta.style.backgroundColor = data.confiavel ? "#28a745" : "#dc3545";
-        alerta.textContent = data.confiavel
-          ? "✅ Este site é confiável"
-          : "⚠️ Cuidado! Site suspeito";
+        alerta.innerHTML = `
+        <strong>${data.confiavel ? "✅ Site confiável" : "⚠️ Site suspeito"}</strong><br>
+        <b>Categoria:</b> ${data.categoria}<br>
+        <b>ReclameAqui:</b> ${data.pontuacaoReclameAqui}
+      `;
+
+          
   
         document.body.appendChild(alerta);
   
